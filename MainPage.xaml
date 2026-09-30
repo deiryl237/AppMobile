@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppMobile.MainPage">
+<ContentPage.Resources>
+    <ResourceDictionary>
+    <Style x:Key="BaseCalcButton" TargetType="Button">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CornerRadius" Value="24" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="1.0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="1.04" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.94" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+        <!-- 1. Digits (Soft Off-White/Lavender) -->
+    <Style x:Key="DigitButton" TargetType="Button" BasedOn="{StaticResource BaseCalcButton}">
+        <Setter Property="BackgroundColor" Value="#F1F3F9" />
+        <Setter Property="TextColor" Value="#2B2D42" />
+    </Style>
+
+    <!-- 2. Operators (Pastel Peach/Coral) -->
+    <Style x:Key="OperatorButton" TargetType="Button" BasedOn="{StaticResource BaseCalcButton}">
+        <Setter Property="BackgroundColor" Value="#FDE2D0" />
+        <Setter Property="TextColor" Value="#D05A3F" />
+    </Style>
+
+    <!-- 3. Clear (Pastel Rose) -->
+    <Style x:Key="ClearButton" TargetType="Button" BasedOn="{StaticResource BaseCalcButton}">
+        <Setter Property="BackgroundColor" Value="#FFD6E0" />
+        <Setter Property="TextColor" Value="#C9184A" />
+    </Style>
+
+    <!-- 4. Equals (Pastel Mint) -->
+    <Style x:Key="EqualButton" TargetType="Button" BasedOn="{StaticResource BaseCalcButton}">
+        <Setter Property="BackgroundColor" Value="#D8F3DC" />
+        <Setter Property="TextColor" Value="#2D6A4F" />
+    </Style>
+
+
+    </ResourceDictionary>
+</ContentPage.Resources>
+
+       <Grid
+       ColumnDefinitions="*,*,*,*"
+       RowDefinitions="Auto,*,*,*,*,*"
+       ColumnSpacing="3"
+       RowSpacing="4"
+       Margin="20"
+       >
+        
+            <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Padding="15"
+            Margin="10"
+            BackgroundColor="Black"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 15">
+            <Grid
+            RowDefinitions="*,2*"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+        >
+                    <Label
+                        x:Name="HistoryLabel"
+                        Grid.Row="0"
+                        Text="{Binding History}"
+                        HorizontalTextAlignment="End"
+                    />
+                    <Label
+                        x:Name="DisplayLabel"
+                        Grid.Row="1"
+                        HorizontalTextAlignment="End"
+                        Text="{Binding DisplayText}"
+                        FontSize="56"
+                        FontAttributes="Bold"
+                    />
+                    </Grid>
+                </Border>
+            
+        <Button
+        Text="7"
+        Grid.Row="2"
+        Grid.Column="0"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="7"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="8"
+        Grid.Row="2"
+        Grid.Column="1"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="8"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="9"
+        Grid.Row="2"
+        Grid.Column="2"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="9"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="4"
+        Grid.Row="3"
+        Grid.Column="0"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="4"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="5"
+        Grid.Row="3"
+        Grid.Column="1"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="5"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="6"
+        Grid.Row="3"
+        Grid.Column="2"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="6"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="2"
+        Grid.Row="4"
+        Grid.Column="1"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="2"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="3"
+        Grid.Row="4"
+        Grid.Column="2"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="3"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="="
+        Grid.Row="5"
+        Grid.Column="3"
+        CornerRadius="20"
+        Command="{Binding EqualPressed}"
+        Style="{StaticResource EqualButton}"/>
+        <Button
+        Text=","
+        Grid.Row="5"
+        Grid.Column="2"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter=","
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="0"
+        Grid.Row="5"
+        Grid.Column="0"
+        Grid.ColumnSpan="2"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="0"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="1"
+        Grid.Row="4"
+        Grid.Column="0"
+        CornerRadius="20"
+        Command="{Binding DigitPressed}"
+        CommandParameter="1"
+        Style="{StaticResource DigitButton}"/>
+        <Button
+        Text="+"
+        Grid.Row="4"
+        Grid.Column="3"
+        CornerRadius="20"
+        Command="{Binding OpePressed}"
+        CommandParameter="+"
+        Style="{StaticResource OperatorButton}"/>
+        <Button
+        Text="-"
+        Grid.Row="3"
+        Grid.Column="3"
+        CornerRadius="20"
+        Command="{Binding OpePressed}"
+        CommandParameter="-"
+        Style="{StaticResource OperatorButton}"/>
+        <Button
+        Text="x"
+        Grid.Row="2"
+        Grid.Column="3"
+        CornerRadius="20"
+        Command="{Binding OpePressed}"
+        CommandParameter="*"
+        Style="{StaticResource OperatorButton}"
+        />
+        <Button
+        Text="/"
+        Grid.Row="1"
+        Grid.Column="3"
+        CornerRadius="20"
+        Command="{Binding OpePressed}"
+        CommandParameter="/"
+        Style="{StaticResource OperatorButton}"/>
+        <Button
+        Text="C"
+        Grid.Row="1"
+        Grid.Column="0"
+        CornerRadius="20"
+        Command="{Binding ClearPressed}"
+        Style="{StaticResource ClearButton}"/>
+       </Grid>
+       
+       
+   
+
+</ContentPage>

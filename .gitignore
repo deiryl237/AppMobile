@@ -1,0 +1,31 @@
+## .NET and Visual Studio
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+.vs/
+.vscode/
+*.user
+*.userprefs
+*.suo
+*.userosscache
+*.sln.docstates
+
+## .NET MAUI / Xamarin specific
+*.apk
+*.aab
+*.dex
+*.keystore
+*.jks
+Generated\ Files/
+Resource.designer.cs
+
+## Windows / macOS OS files
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
