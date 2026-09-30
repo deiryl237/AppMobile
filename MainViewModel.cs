@@ -31,6 +31,14 @@ public class MainViewModel : BindableObject
     }
     private void OnEqual(){
         SecondNumber=double.Parse(DisplayText);
+        if (SelectedOperator == "/" && SecondNumber == 0)
+    {
+        DisplayText = "Error, division by 0";
+        OnPropertyChanged(nameof(DisplayText));
+        IsNewEntry = true;
+        ongoingOP = false;
+        return; 
+    }
         FirstNumber=Calculate(FirstNumber,SecondNumber,SelectedOperator);
         DisplayText= FirstNumber.ToString();
         OnPropertyChanged(nameof(DisplayText));
