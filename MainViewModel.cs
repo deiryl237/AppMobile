@@ -26,16 +26,27 @@ public class MainViewModel : BindableObject
     private void Back(){
         if (DisplayText != "0"){
             if (DisplayText.Length > 1){
+                if (ongoingOP){
             History=History.Remove(History.Length -1);
             OnPropertyChanged(nameof(History));
             DisplayText=DisplayText.Remove(DisplayText.Length -1);
             OnPropertyChanged(nameof(DisplayText));}
             else{
-                 History=History.Remove(History.Length -1);
+                DisplayText=DisplayText.Remove(DisplayText.Length -1);
+            OnPropertyChanged(nameof(DisplayText));
+            }}
+            else{
+            if(ongoingOP){
+            History=History.Remove(History.Length -1);
             OnPropertyChanged(nameof(History));
             DisplayText="0";
             OnPropertyChanged(nameof(DisplayText));
+            IsNewEntry=true;}
+            else{
+                DisplayText="0";
+            OnPropertyChanged(nameof(DisplayText));
             IsNewEntry=true;
+            }
             }
         }
         else{
