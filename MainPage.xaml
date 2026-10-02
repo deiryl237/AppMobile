@@ -96,7 +96,24 @@
                     />
                 </VerticalStackLayout>
             </Border>
-            
+        
+        <Button
+        Text="Back"
+        Grid.Column="2"
+        Grid.Row="1"
+        CornerRadius="20"
+        Style="{StaticResource EqualButton}"
+        Command="{Binding BackSpace}"
+        />
+        <Button
+        Text="%"
+        Grid.Column="1"
+        Grid.Row="1"
+        CornerRadius="20"
+        Command="{Binding OpePressed}"
+        CommandParameter="%"
+        Style="{StaticResource OperatorButton}"
+        />
         <Button
         Text="7"
         Grid.Row="2"

@@ -14,16 +14,40 @@ public class MainViewModel : BindableObject
     public ICommand OpePressed{get;}
     public ICommand EqualPressed{get;}
     public ICommand ClearPressed{get;}
+    public ICommand BackSpace{get;}
     
     public MainViewModel(){
         DigitPressed= new Command<string>(OnDigit);
         OpePressed= new Command<string>(OPress);
         EqualPressed= new Command(OnEqual);
         ClearPressed= new Command(OnClear);
+        BackSpace= new Command(Back);
+    }
+    private void Back(){
+        if (DisplayText != "0"){
+            if (DisplayText.Length > 1){
+            History=History.Remove(History.Length -1);
+            OnPropertyChanged(nameof(History));
+            DisplayText=DisplayText.Remove(DisplayText.Length -1);
+            OnPropertyChanged(nameof(DisplayText));}
+            else{
+                 History=History.Remove(History.Length -1);
+            OnPropertyChanged(nameof(History));
+            DisplayText="0";
+            OnPropertyChanged(nameof(DisplayText));
+            IsNewEntry=true;
+            }
+        }
+        else{
+            IsNewEntry=true;
+        }
     }
     private void OnClear(){
         DisplayText="0";
         FirstNumber=0;
+        SecondNumber=0;
+        SelectedOperator="";
+        ongoingOP=false;
         IsNewEntry=true;
         OnPropertyChanged(nameof(DisplayText));
         History="";
@@ -47,16 +71,21 @@ public class MainViewModel : BindableObject
     }
     private void OPress(string op){
         if(ongoingOP==false){
+            if (DisplayText== "0" && op!= "-" ){
+                SelectedOperator="";
+                ongoingOP=false;
+                IsNewEntry=true;
+            }
+            else{
         SelectedOperator=op;
         FirstNumber= double.Parse(DisplayText);
         ongoingOP=true;
         IsNewEntry=true;
         History += op;
-            OnPropertyChanged(nameof(History));}
+        OnPropertyChanged(nameof(History));}}
         else{
             if (IsNewEntry){
                 SelectedOperator=op;
-
             }
             else{
                
@@ -66,6 +95,8 @@ public class MainViewModel : BindableObject
                 OnPropertyChanged(nameof(DisplayText));
                 IsNewEntry=true;
                  SelectedOperator=op;
+                History += op;
+                OnPropertyChanged(nameof(History));
             }
         }
     }
@@ -79,6 +110,8 @@ public class MainViewModel : BindableObject
                 return FirstNumber-SecondNumber;
             case "/":
                 return SecondNumber!= 0 ? FirstNumber/SecondNumber : 0;
+            case "%":
+                return (FirstNumber*100)/SecondNumber;
             default:
                 return double.Parse(DisplayText);
         }
